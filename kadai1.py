@@ -7,13 +7,7 @@ from openpyxl.styles import Font
 from openpyxl.styles import PatternFill
 
 
-
-def main():
-    #----ブック作成----------------------------------------------------------------------
-    book = excel.Workbook()
-    sheet1 = book.active
-    
-
+def main(sheet1):
     #----シート名設定--------------------------------------------------------------------
     sheet1.title = "表紙"
 
@@ -161,9 +155,14 @@ def main():
 
 
     #----保存------------------------------------------------------------------------------
-    book.save(os.path.join('.','test.xlsx'))
+    book.save('.\\test.xlsx')
+
 
 if __name__ == "__main__":
 
-    
-    main()
+    #ブック作成
+    book = excel.Workbook()
+    sheet = book.active
+ 
+    #メイン処理
+    main(sheet)
