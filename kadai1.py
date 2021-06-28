@@ -1,6 +1,6 @@
 import openpyxl as excel
 import datetime
-import os.path
+import os
 from openpyxl.styles.borders import Border,Side
 from openpyxl.styles import Alignment
 from openpyxl.styles import Font
@@ -161,7 +161,7 @@ def main():
 
 
     #----保存------------------------------------------------------------------------------
-    book.save('test.xlsx')
+    book.save(os.path.join('.','test.xlsx'))
 
 if __name__ == "__main__":
 
