@@ -1,0 +1,11 @@
+[
+    {"coordinate": "A2", "value": "設計書"},
+    {"coordinate": "B13", "value": "モジュールID"},
+    {"coordinate": "B14", "value": "サブメニュー名"},
+    {"coordinate": "B15", "value": "コマンドID"},
+    {"coordinate": "B16", "value": "コマンド名"},
+    {"coordinate": "B17", "value": "プログラムID"},
+    {"coordinate": "B20", "value": "バージョン"},
+    {"coordinate": "C20", "value": "作成日"},
+    {"coordinate": "D20", "value": "作成者"}
+]

@@ -1,6 +1,7 @@
 import openpyxl as excel
 import datetime
 import os
+import json
 from openpyxl.styles.borders import Border,Side
 from openpyxl.styles import Alignment
 from openpyxl.styles import Font
@@ -134,7 +135,7 @@ def main(sheet1):
 
 
     #----出力文字列設定-------------------------------------------------------------------------
-
+    """
     #タイトル
     sheet1["A4"] = "設計書"
 
@@ -149,14 +150,15 @@ def main(sheet1):
     sheet1["B20"] = "バージョン"
     sheet1["C20"] = "作成日"
     sheet1["D20"] = "作成者"
-
+    """
     #日付
     sheet1["E2"] = datetime.date.today()
 
-
-    #----保存------------------------------------------------------------------------------
-    book.save('.\\test.xlsx')
-
+    
+    with open(os.path.join('.','表紙test.json')) as f:
+        jsn = json.load(f)
+        sheet1 = jsn
+    
 
 if __name__ == "__main__":
 
@@ -166,3 +168,6 @@ if __name__ == "__main__":
  
     #メイン処理
     main(sheet)
+
+    #保存
+    book.save(os.path.join('.','test.xlsx'))
