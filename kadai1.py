@@ -136,20 +136,6 @@ def main(sheet1):
 
     #----出力文字列設定-------------------------------------------------------------------------
     """
-    #タイトル
-    sheet1["A4"] = "設計書"
-
-    #サブタイトル
-    sheet1["B13"] = "モジュールID"
-    sheet1["B14"] = "サブメニュー名"
-    sheet1["B15"] = "コマンドID"
-    sheet1["B16"] = "コマンド名"
-    sheet1["B17"] = "プログラムID"
-
-    #バージョン、作成日、作成者欄
-    sheet1["B20"] = "バージョン"
-    sheet1["C20"] = "作成日"
-    sheet1["D20"] = "作成者"
     """
     #日付
     sheet1["E2"] = datetime.date.today()
@@ -159,8 +145,12 @@ def main(sheet1):
         jsn = json.load(f)
 
 
-    for cell1 in jsn[0:len(jsn)]:
-        sheet1[cell1['coordinate']] = cell1['value']
+    key = 'coordinate'
+    for cell1 in jsn:
+        try:
+            sheet1[cell1[key]] = cell1['value']
+        except:
+            print("Error")
     
 
 if __name__ == "__main__":
