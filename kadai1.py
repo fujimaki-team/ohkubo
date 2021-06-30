@@ -155,9 +155,12 @@ def main(sheet1):
     sheet1["E2"] = datetime.date.today()
 
     
-    with open(os.path.join('.','表紙test.json')) as f:
+    with open(os.path.join('.','表紙test.json'), encoding='utf-8') as f:
         jsn = json.load(f)
-        sheet1 = jsn
+
+
+    for cell1 in jsn[0:len(jsn)]:
+        sheet1[cell1['coordinate']] = cell1['value']
     
 
 if __name__ == "__main__":
