@@ -32,7 +32,7 @@
         {"border": "D20:D21"}
     ],
     "cells_title": [
-        {"coordinate": "A4", "value": "設計書", "font_name": "ＭＳ Ｐゴシック", "bold": "true" ,"size": 36, "horizontal": "center", "vertical": "center"},
+        {"coordinate": "A4", "value": "設計書", "font": {"name": "ＭＳ Ｐゴシック", "bold": "true" ,"size": 36}, "alignment": {horizontal": "center", "vertical": "center"}},
         {"coordinate": "B13", "value": "モジュールID", "font_name": "ＭＳ Ｐゴシック", "bold": "true" ,"size": 11, "horizontal": "left", "vertical": "center"},
         {"coordinate": "B14", "value": "サブメニュー名", "font_name": "ＭＳ Ｐゴシック", "bold": "true" ,"size": 11, "horizontal": "left", "vertical": "center"},
         {"coordinate": "B15", "value": "コマンドID", "font_name": "ＭＳ Ｐゴシック", "bold": "true" ,"size": 11, "horizontal": "left", "vertical": "center"},

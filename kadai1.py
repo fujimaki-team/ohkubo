@@ -8,6 +8,16 @@ from openpyxl.styles import Font
 from openpyxl.styles import PatternFill
 
 
+def set_font(font):
+    ''' フォントを設定する '''
+    pass
+
+
+def set_alignment(alignment):
+    ''' アラインメントを設定する '''
+    pass
+
+
 def main(sheet1):
 
     with open(os.path.join('.','表紙test.json'), encoding='utf-8') as f:
