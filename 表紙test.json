@@ -1,11 +1,45 @@
-[
-    {"coordinate": "A4", "value": "設計書"},
-    {"coordinate": "B13", "value": "モジュールID"},
-    {"coordinate": "B14", "value": "サブメニュー名"},
-    {"coordinate": "B15", "value": "コマンドID"},
-    {"coordinate": "B16", "value": "コマンド名"},
-    {"coordinate": "B17", "value": "プログラムID"},
-    {"coordinate": "B20", "value": "バージョン"},
-    {"coordinate": "C20", "value": "作成日"},
-    {"coordinate": "D20", "value": "作成者"}
-]
+{
+
+    "cols": [
+        {"cell": "A", "width": 22},  
+        {"cell": "B", "width": 22},  
+        {"cell": "C", "width": 22},  
+        {"cell": "D", "width": 22},  
+        {"cell": "E", "width": 22}   
+    ],
+    "rows": [
+        {"cell_r": 13, "height": 20},
+        {"cell_r": 14, "height": 20},
+        {"cell_r": 15, "height": 20},
+        {"cell_r": 16, "height": 20},
+        {"cell_r": 17, "height": 20},
+        {"cell_r": 20, "height": 20},
+        {"cell_r": 21, "height": 20}
+    ],
+    "merges":  [
+        {"merge": "A4:E6"},
+        {"merge": "C13:D13"},
+        {"merge": "C14:D14"},
+        {"merge": "C15:D15"},
+        {"merge": "C16:D16"},
+        {"merge": "C17:D17"}
+    ],
+    "borders": [
+        {"border": "B13:B17"},
+        {"border": "C13:D17"},
+        {"border": "B20:B21"},
+        {"border": "C20:C21"},
+        {"border": "D20:D21"}
+    ],
+    "cells_title": [
+        {"coordinate": "A4", "value": "設計書", "font_name": "ＭＳ Ｐゴシック", "bold": "true" ,"size": 36, "horizontal": "center", "vertical": "center"},
+        {"coordinate": "B13", "value": "モジュールID", "font_name": "ＭＳ Ｐゴシック", "bold": "true" ,"size": 11, "horizontal": "left", "vertical": "center"},
+        {"coordinate": "B14", "value": "サブメニュー名", "font_name": "ＭＳ Ｐゴシック", "bold": "true" ,"size": 11, "horizontal": "left", "vertical": "center"},
+        {"coordinate": "B15", "value": "コマンドID", "font_name": "ＭＳ Ｐゴシック", "bold": "true" ,"size": 11, "horizontal": "left", "vertical": "center"},
+        {"coordinate": "B16", "value": "コマンド名", "font_name": "ＭＳ Ｐゴシック", "bold": "true" ,"size": 11, "horizontal": "left", "vertical": "center"},
+        {"coordinate": "B17", "value": "プログラムID", "font_name": "ＭＳ Ｐゴシック", "bold": "true" ,"size": 11, "horizontal": "left", "vertical": "center"},
+        {"coordinate": "B20", "value": "バージョン", "font_name": "ＭＳ Ｐゴシック", "bold": "true" ,"size": 11, "horizontal": "center", "vertical": "center"},
+        {"coordinate": "C20", "value": "作成日", "font_name": "ＭＳ Ｐゴシック", "bold": "true" ,"size": 11, "horizontal": "center", "vertical": "center"},
+        {"coordinate": "D20", "value": "作成者", "font_name": "ＭＳ Ｐゴシック", "bold": "true" ,"size": 11, "horizontal": "center", "vertical": "center"}
+    ]
+}

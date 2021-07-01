@@ -9,29 +9,37 @@ from openpyxl.styles import PatternFill
 
 
 def main(sheet1):
+
+    with open(os.path.join('.','表紙test.json'), encoding='utf-8') as f:
+        jsn = json.load(f)
+    
     #----シート名設定--------------------------------------------------------------------
     sheet1.title = "表紙"
 
-    #----セルの幅------------------------------------------------------------------------
-    sheet1.column_dimensions['A'].width = 21.38
-    sheet1.column_dimensions['B'].width = 21.38
-    sheet1.column_dimensions['C'].width = 21.38
-    sheet1.column_dimensions['D'].width = 21.38
-    sheet1.column_dimensions['E'].width = 21.38
+    #セルの幅
+    key_cols = "cell"
+    for cols in jsn["cols"]:
+        try:
+            sheet1.column_dimensions[cols[key_cols]].width = cols["width"]
+        except:
+            print("cols_Error")    
+    
+    #セルの高さ
+    key_rows = "cell_r"
+    for rows in jsn["rows"]:
+        try:
+            sheet1.row_dimensions[rows[key_rows]].height = rows["height"]
+        except:
+            print("rows_Error")
 
-
-
-    #----セルの高さ----------------------------------------------------------------------
-    sheet1.row_dimensions[13].height = 19.50
-    sheet1.row_dimensions[14].height = 19.50
-    sheet1.row_dimensions[15].height = 19.50
-    sheet1.row_dimensions[16].height = 19.50
-    sheet1.row_dimensions[17].height = 19.50
-
-    sheet1.row_dimensions[20].height = 19.50
-    sheet1.row_dimensions[21].height = 19.50
-
-
+    #セルの結合設定
+    key_merg = "merge"
+    for merges in jsn["merges"]:
+        try:
+            sheet1.merge_cells(merges[key_merg])
+        except:
+            print("merge_Error")
+    
 
     #----セル内の色設定-----------------------------------------------------------------------
     fill = PatternFill(patternType = 'solid', fgColor = 'd3d3d3')
@@ -85,72 +93,31 @@ def main(sheet1):
                 cell.border = Border(top=side_s ,bottom=side_b ,left=side_b ,right=side_b)
 
 
-        
-    #----セルの結合設定-------------------------------------------------------------------------
-    sheet1.merge_cells("A4:E6")
-    sheet1.merge_cells("C13:D13")
-    sheet1.merge_cells("C14:D14")
-    sheet1.merge_cells("C15:D15")
-    sheet1.merge_cells("C16:D16")
-    sheet1.merge_cells("C17:D17")
 
-
-
-    #----文字列そろえ設定-----------------------------------------------------------------------
-    for rows in sheet1:
-        for cell in rows:
-        
-            if cell == sheet1["A4"] :
-                #上下左右センターそろえ
-                cell.alignment = Alignment(horizontal = "center" ,vertical = "center")
-        
-            elif cell == sheet1["B20"] or cell == sheet1["C20"] or cell == sheet1["D20"]:
-                #上下左右センターそろえ
-                cell.alignment = Alignment(horizontal = "center" ,vertical = "center")
-        
-            else :
-                #上下センターそろえ
-                cell.alignment = Alignment(vertical = "center")
-
-
-
-    #----フォント変更設定-----------------------------------------------------------------------
-    fontname = "ＭＳ Ｐゴシック"
-
-    #タイトル
-    sheet1["A4"].font = Font(name = fontname ,bold = "true" ,size = 36 )
-
-    #サブタイトル
-    sheet1["B13"].font = Font(name = fontname ,bold = "true" ,size = 11 )
-    sheet1["B14"].font = Font(name = fontname ,bold = "true" ,size = 11 )
-    sheet1["B15"].font = Font(name = fontname ,bold = "true" ,size = 11 )
-    sheet1["B16"].font = Font(name = fontname ,bold = "true" ,size = 11 )
-    sheet1["B17"].font = Font(name = fontname ,bold = "true" ,size = 11 )
-
-    #バージョン、作成日、作成者欄
-    sheet1["B20"].font = Font(name = fontname ,bold = "true" ,size = 11 )
-    sheet1["C20"].font = Font(name = fontname ,bold = "true" ,size = 11 )
-    sheet1["D20"].font = Font(name = fontname ,bold = "true" ,size = 11 )
-
-
-
-    #----出力文字列設定-------------------------------------------------------------------------
-    """
-    """
     #日付
     sheet1["E2"] = datetime.date.today()
 
-    
-    with open(os.path.join('.','表紙test.json'), encoding='utf-8') as f:
-        jsn = json.load(f)
 
-
+    #文字表示設定
     key = 'coordinate'
-    for cell1 in jsn:
+    for cell1 in jsn["cells_title"]:
         try:
+            #出力文字設定
             sheet1[cell1[key]] = cell1['value']
         except:
-            print("Error")
+            print("Title_Error")
+
+        try:
+            #フォント設定
+            sheet1[cell1[key]].font = Font(name = cell1['font_name'], bold = cell1['bold'], size = cell1['size'])
+        except:
+            print("Title_Font_Error")
+
+        try:
+            #文字上下左右そろえ
+            sheet1[cell1[key]].alignment = Alignment(horizontal = cell1["horizontal"], vertical = cell1["vertical"])
+        except:
+            print("Title_alignment_Error")
     
 
 if __name__ == "__main__":
