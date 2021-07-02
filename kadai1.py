@@ -82,32 +82,28 @@ def set_sysdate(sysdate, sheet1, key):
     pass
 
 
-def set_title(cell1, sheet1, key):
+def set_title(cell, value):
     '''出力文字を設定する'''
     try:
-        sheet1[cell1[key]] = cell1["value"]
+        cell.value = value
     except ValueError:
         print("Title_Error")
     pass
 
 
-def set_font(cell1, sheet1, key):
+def set_font(cell, font):
     ''' フォントを設定する '''
     try:
-        fonts = cell1["font"]
-        sheet1[cell1[key]].font = Font(
-            name=fonts["name"], bold=fonts["bold"], size=fonts["size"])
+        cell.font = Font(name=font["name"], bold=font["bold"], size=font["size"])
     except ValueError:
         print("Title_Font_Error")
     pass
 
 
-def set_alignment(cell1, sheet1, key):
+def set_alignment(cell, horizontal, vertical):
     ''' アラインメントを設定する '''
     try:
-        alig = cell1["alignment"]
-        sheet1[cell1[key]].alignment = Alignment(
-            horizontal=alig["horizontal"], vertical=alig["vertical"])
+        cell.alignment = Alignment(horizontal=horizontal, vertical=vertical)
     except ValueError:
         print("Title_alignment_Error")
     pass
@@ -148,41 +144,6 @@ def main(sheet1):
     for borders in jsn["borders"]:
         set_borders(borders, sheet1)
 
-    '''
-    # 枠線の種類と色設定
-    # side_b = Side(style='thick', color='000000')
-    # side_s = Side(style='thin', color='000000')
-
-    # タイトル
-    for rows in sheet1["A4:E6"]:
-        for cell in rows:
-            cell.border = Border(
-                top=side_b, bottom=side_b, left=side_b, right=side_b)
-
-    # サブタイトル
-    for rows in sheet1["B13:D17"]:
-        for cell in rows:
-            if cell == (sheet1["B13"] or sheet1["C13"] or sheet1["D13"]):
-                cell.border = Border(
-                    top=side_b, bottom=side_s, left=side_b, right=side_b)
-            elif cell == (sheet1["B17"] or sheet1["C17"] or sheet1["D17"]):
-                cell.border = Border(
-                    top=side_s, bottom=side_b, left=side_b, right=side_b)
-            else:
-                cell.border = Border(
-                    top=side_s, bottom=side_s, left=side_b, right=side_b)
-
-    # バージョン、作成日、作成者欄
-    for rows in sheet1["B20:D21"]:
-        for cell in rows:
-            if cell == (sheet1["B20"] or sheet1["C20"] or sheet1["D20"]):
-                cell.border = Border(
-                    top=side_b, bottom=side_s, left=side_b, right=side_b)
-            else:
-                cell.border = Border(
-                    top=side_s, bottom=side_b, left=side_b, right=side_b)
-    '''
-
     # 文字表示設定
     # 日付
     key = 'coordinate'
@@ -190,14 +151,19 @@ def main(sheet1):
 
     for cell1 in jsn["cells_title"]:
 
+        cell = sheet1[cell1[key]]
+        value = cell1['value']
+
         # 出力文字設定
-        set_title(cell1, sheet1, key)
+        set_title(cell, value)
 
         # フォント設定
-        set_font(cell1, sheet1, key)
+        font = cell1['font']
+        set_font(cell, font)
 
         # 文字上下左右そろえ
-        set_alignment(cell1, sheet1, key)
+        alignment = cell1['alignment']
+        set_alignment(cell, **alignment)
 
         set_fill(cell1, sheet1, key)
 
