@@ -13,7 +13,7 @@ def set_sheet_name(jsn, sheet1):
     key_name = "sheet_name"
     try:
         sheet1.title = jsn[key_name]
-    except ValueError:
+    except KeyError:
         print("sheet_name_Error")
     pass
 
@@ -23,7 +23,7 @@ def set_column(cols, sheet1):
     key_cols = "column"
     try:
         sheet1.column_dimensions[cols[key_cols]].width = cols["width"]
-    except ValueError:
+    except KeyError:
         print("cols_Error")
     pass
 
@@ -33,7 +33,7 @@ def set_line(rows, sheet1):
     key_rows = "line"
     try:
         sheet1.row_dimensions[rows[key_rows]].height = rows["height"]
-    except ValueError:
+    except KeyError:
         print("rows_Error")
     pass
 
@@ -43,7 +43,7 @@ def set_merges(merges, sheet1):
     key_merg = "merge"
     try:
         sheet1.merge_cells(merges[key_merg])
-    except ValueError:
+    except KeyError:
         print("merge_Error")
     pass
 
@@ -65,7 +65,7 @@ def set_borders(borders, sheet1):
             for cell in rows:
                 cell.border = Border(
                     top=t, bottom=b, left=le, right=r)
-    except ValueError:
+    except KeyError:
         print("border_Error")
     pass
 
@@ -75,7 +75,7 @@ def set_sysdate(sysdate, sheet1, key):
     if "todey" == sysdate["value"]:
         try:
             sheet1[sysdate[key]] = datetime.date.today()
-        except ValueError:
+        except KeyError:
             print("sysdate_Error")
     else:
         print("JSONファイルの日付書式が間違えています")
@@ -86,16 +86,16 @@ def set_title(cell, value):
     '''出力文字を設定する'''
     try:
         cell.value = value
-    except ValueError:
+    except KeyError:
         print("Title_Error")
     pass
 
 
-def set_font(cell, font):
+def set_font(cell, name, bold, size):
     ''' フォントを設定する '''
     try:
-        cell.font = Font(name=font["name"], bold=font["bold"], size=font["size"])
-    except ValueError:
+        cell.font = Font(name=name, bold=bold, size=size)
+    except KeyError:
         print("Title_Font_Error")
     pass
 
@@ -104,18 +104,16 @@ def set_alignment(cell, horizontal, vertical):
     ''' アラインメントを設定する '''
     try:
         cell.alignment = Alignment(horizontal=horizontal, vertical=vertical)
-    except ValueError:
+    except KeyError:
         print("Title_alignment_Error")
     pass
 
 
-def set_fill(cell1, sheet1, key):
+def set_fill(cell, patternType, fgColor):
     ''' セル内の色を設定する '''
     try:
-        fills = cell1["fill"]
-        sheet1[cell1[key]].fill = PatternFill(
-            patternType=fills["patternType"], fgColor=fills["fgColor"])
-    except ValueError:
+        cell.fill = PatternFill(patternType=patternType, fgColor=fgColor)
+    except KeyError:
         print("Title_fill_Error")
     pass
 
@@ -152,20 +150,22 @@ def main(sheet1):
     for cell1 in jsn["cells_title"]:
 
         cell = sheet1[cell1[key]]
-        value = cell1['value']
+        value = cell1["value"]
 
         # 出力文字設定
         set_title(cell, value)
 
         # フォント設定
-        font = cell1['font']
-        set_font(cell, font)
+        font = cell1["font"]
+        set_font(cell, **font)
 
         # 文字上下左右そろえ
-        alignment = cell1['alignment']
+        alignment = cell1["alignment"]
         set_alignment(cell, **alignment)
 
-        set_fill(cell1, sheet1, key)
+        # セル内の色を設定
+        fill = cell1["fill"]
+        set_fill(cell, **fill)
 
 
 if __name__ == "__main__":
