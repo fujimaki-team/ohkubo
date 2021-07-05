@@ -38,11 +38,10 @@ def set_line(rows, sheet1):
     pass
 
 
-def set_merges(merges, sheet1):
+def set_merges(sheet1, range):
     '''セルの結合箇所を設定する'''
-    key_merg = "merge"
     try:
-        sheet1.merge_cells(merges[key_merg])
+        sheet1.merge_cells(range)
     except KeyError:
         print("merge_Error")
     pass
@@ -135,8 +134,9 @@ def main(sheet1):
         set_line(rows, sheet1)
 
     # セルの結合設定
-    for merges in jsn["merges"]:
-        set_merges(merges, sheet1)
+    for merge in jsn["merges"]:
+        range = merge['merge']
+        set_merges(sheet1, range)
 
     # ----枠線の場所設定
     for borders in jsn["borders"]:
